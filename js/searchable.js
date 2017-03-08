@@ -39,24 +39,27 @@ function initMap() {
     center: myLatLng[1]
   });
   var marker;
-  for(i = 0; i <= myLatLng.length; i++) {
+  //create one instance of InfoWindow to store the content of each corresponding marker
+  //https://discussions.udacity.com/t/multiple-markers-multiple-infowindows-help/226784/3
+  myinfowindow = new google.maps.InfoWindow({content: ''});
+  for(i = 0; i < myLatLng.length; i++) {
     position = new google.maps.LatLng(myLatLng[i].lat, myLatLng[i].lng);
-    myinfowindow = new google.maps.InfoWindow({content: myLatLng[i].marker});
     marker = new google.maps.Marker({
     position: position,
+    content: myLatLng[i].marker,
     map: map
   });
   google.maps.event.addListener(marker, 'click', function() {
-    infowindow.close();
-    infowindow.open(map, this);
-    inforwindow.setContent(myinfowindow);
+    myinfowindow.close();
+    myinfowindow.open(map, this);
+    myinfowindow.setContent(this.content);
 
   });
   }
 }
 
 function PageLinkViewModel() {
-    self = this;
+    var self = this;
     self.query = ko.observable('');
     self.pageLocations = ko.observableArray(myLatLng);
 
