@@ -115,8 +115,6 @@ function PageLinkViewModel() {
     }
   }, self);
 
-  //this.mapElem = document.getElementById('map');
-
 }
 
 function initMap() {
