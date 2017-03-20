@@ -29,10 +29,10 @@ var map;
 
 var mapItems = function (data) {
     var self = this;
-    this.title = myLatLng.title;
-    this.des = myLatLng.des;
-    this.lat = myLatLng.lat;
-    this.lng = myLatLng.lng;
+    this.title = data.title;
+    this.des = data.des;
+    this.lat = data.lat;
+    this.lng = data.lng;
 
     //create an observable to handle displaying markers on the map
     this.visible = ko.observable(true);
@@ -44,15 +44,15 @@ var mapItems = function (data) {
     this.info = new google.maps.InfoWindow({ content: self.content });
 
     this.marker = new google.maps.Marker({
-      position: new google.maps.LatLng(myLatLng.lat, myLatLng.lng),
+      position: new google.maps.LatLng(data.lat, data.lng),
       map: map,
-      title: myLatLng.title,
+      title: data.title,
     });
 
     this.showMarkers = ko.computed(function () {
       if (this.visible() === true) {
-        console.dir('Marker: ' + this.marker.setMap());
-        this.marker.setMap(true);
+        console.log(this.marker, null, 4);
+        this.marker.setMap(map);
       } else {
         console.log(this.marker);
         this.marker.setMap(null);
@@ -60,10 +60,9 @@ var mapItems = function (data) {
       return true;
     }, this);
     //handle clicks on markers that are displayed
-    this.marker.addListener(this.marker, 'click', function () {
+    this.marker.addListener('click', function () {
       self.content = 'The location is: ' + data.title + ' info' + this.marker;
-
-      this.info.setContent(self.content);
+      console.log('content', self.content);
       self.info.open(map, this);
     });
 
@@ -92,7 +91,7 @@ function PageLinkViewModel() {
   //create an instance of the mapdata per loclist
   myLatLng.forEach(function (locItem) {
     self.locList.push(new mapItems(locItem));
-    console.log('Location Item: ' + locItem);
+    console.log('Location Item: ', locItem);
   });
 
   this.computedLocations = ko.computed(function () {
@@ -108,7 +107,7 @@ function PageLinkViewModel() {
       return ko.utils.arrayFilter(self.locList(), function (locItem) {
         var string = locItem.title.toLowerCase();
         console.log('String Item: ' + string);
-        var result = (string.search(filter) >= 0);
+        var result = (string.search(filtered) >= 0);
         locItem.visible(result);
         return result;
       });
