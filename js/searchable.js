@@ -1,27 +1,27 @@
 var myLatLng = [
   {
-      title: 'Favorite 1',
-      des: 'Australia 1',
-      lat: -5.363,
-      lng: 131.044,
+      title: 'Whitney Museum of American Art',
+      des: 'Museum 1',
+      lat: 40.739,
+      lng: -74.008,
     },
     {
-      title: 'Favorite 2',
-      des: 'Australia 2',
-      lat: -25.000,
-      lng: 131.299,
+      title: 'The Metropolitan Museum of Art',
+      des: 'Museum 2',
+      lat: 40.779,
+      lng: -73.963,
     },
     {
-      title: 'Favorite 3',
-      des: 'Australia 3',
-      lat: -24.998,
-      lng: 121.200,
+      title: 'American Museum of Natural History',
+      des: 'Museum 3',
+      lat: 40.781,
+      lng: -73.974,
     },
     {
-      title: 'Favorite 4',
-      des: 'Australia 4',
-      lat: -23.086,
-      lng: 120.199,
+      title: 'The Museum of Modern Art',
+      des: 'Museum 4',
+      lat: 40.761,
+      lng: -73.977,
     }
 ];
 
@@ -36,6 +36,7 @@ var mapItems = function (data) {
 
     //create an observable to handle displaying markers on the map
     this.visible = ko.observable(true);
+
     //store the content for the markers to be displayed
 
     this.content = 'Filler Information!!!!';
@@ -61,8 +62,7 @@ var mapItems = function (data) {
     }, this);
     //handle clicks on markers that are displayed
     this.marker.addListener('click', function () {
-      self.content = 'The location is: ' + data.title + ' info' + this.marker;
-      console.log('content', self.content);
+
       self.info.open(map, this);
     });
 
@@ -84,8 +84,8 @@ function PageLinkViewModel() {
 
   //inital map
   map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 8,
-    center: { lat: -25.000, lng: 131.044 },
+    zoom: 13,
+    center: { lat: 40.739, lng: -74.008 },
   });
 
   //create an instance of the mapdata per loclist
