@@ -26,7 +26,14 @@ var myLatLng = [
       lat: 40.761,
       lng: -73.977,
       articleinfo: '',
-    }
+    },
+    {
+      title: 'Morgan Library & Museum',
+      des: 'Museum 5',
+      lat: 40.749,
+      lng: -73.981,
+      articleinfo: '',
+    },
 ];
 
 var map;
@@ -49,7 +56,6 @@ var mapItems = function (data) {
 
     $.getJSON(wikiInfo).done(function(data) {
       self.articleinfo = data[2][0];
-      console.log('DES 1: ' + articleinfo.des);
     }).fail(function () {
       alert('There was an error with the Wikipedia database. Please try refreshing the page.');
     });
@@ -82,6 +88,13 @@ var mapItems = function (data) {
     this.marker.addListener('click', function () {
 
       self.info.open(map, this);
+
+      //trigger bounce animation as per google maps for the markers
+      if (self.marker.getAnimation() !== null) {
+          self.marker.setAnimation(null);
+        } else {
+          self.marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
     });
 
     this.targeted = function(locs) {
