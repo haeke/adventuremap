@@ -145,11 +145,12 @@ function PageLinkViewModel() {
 
 }
 
-function initMap() {
-  ko.applyBindings(new PageLinkViewModel());
-}
-
 //in case there's an issue loading google maps
 function errorOnStart() {
   alert("Google maps did not load, please refresh this page and check your internet connection");
+}
+
+//google maps initilize function
+function initMap() {
+  ko.applyBindings(new PageLinkViewModel());
 }
