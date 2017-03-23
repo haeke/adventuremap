@@ -4,24 +4,28 @@ var myLatLng = [
       des: 'Museum 1',
       lat: 40.739,
       lng: -74.008,
+      articleinfo: '',
     },
     {
-      title: 'The Metropolitan Museum of Art',
+      title: 'Metropolitan Museum of Art',
       des: 'Museum 2',
       lat: 40.779,
       lng: -73.963,
+      articleinfo: '',
     },
     {
       title: 'American Museum of Natural History',
       des: 'Museum 3',
       lat: 40.781,
       lng: -73.974,
+      articleinfo: '',
     },
     {
-      title: 'The Museum of Modern Art',
+      title: 'Museum of Modern Art',
       des: 'Museum 4',
       lat: 40.761,
       lng: -73.977,
+      articleinfo: '',
     }
 ];
 
@@ -33,16 +37,53 @@ var mapItems = function (data) {
     this.des = data.des;
     this.lat = data.lat;
     this.lng = data.lng;
+    this.articleinfo = data.articleinfo;
 
     //create an observable to handle displaying markers on the map
     this.visible = ko.observable(true);
 
-    //store the content for the markers to be displayed
+    //gather information based on the title of marker
+    var wikiInfo = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + this.title + '&format=json&callback=?';
 
-    this.content = 'Filler Information!!!!';
+    console.log('WikiInfo to display: ' + wikiInfo);
+
+    $.getJSON(wikiInfo).done(function(data) {
+      self.articleinfo = data[2][0];
+      //self.des  = '<a href=' + data[3][0] + '>' + data[3][0]
+      //+ '</a><br />' + '<p>' + data[2][0] + '</p>';
+
+      console.log('DES 1: ' + articleinfo.des);
+    }).fail(function () {
+      alert('There was an error with the Wikipedia database. Please try refreshing the page.');
+    });
+
+    //gather info from wikipedia for json locations
+    // $.ajax({
+    //   url: wikiInfo,
+    //   type: 'GET',
+    //   contentType: 'application/json; charset=utf-8',
+    //   async: false,
+    //   dataType: 'json',
+    //   success: function(data, status, jqXHR) {
+    //     console.log(data);
+    //     //$('#output').html();
+    //     //$('#output').prepend('<a href=' + data[3][0] + '>' + data[3][0]
+    //     //+ '</a><br />' + '<p>' + data[2][0] + '</p>');
+    //
+    //     this.des  = '<a href=' + data[3][0] + '>' + data[3][0]
+    //     + '</a><br />' + '<p>' + data[2][0] + '</p>';
+    //
+    //     console.log('DES 1: ' + this.des);
+    //   },
+    // });
+
+    //store the content for the markers to be displayed
+    this.content = self.des;
 
     //create an instance of an infowindow
-    this.info = new google.maps.InfoWindow({ content: self.content });
+    this.info = new google.maps.InfoWindow({ content: this.content });
+
+    console.log('infomarker: ', this.info);
 
     this.marker = new google.maps.Marker({
       position: new google.maps.LatLng(data.lat, data.lng),
@@ -118,4 +159,9 @@ function PageLinkViewModel() {
 
 function initMap() {
   ko.applyBindings(new PageLinkViewModel());
+}
+
+//in case there's an issue loading google maps
+function errorOnStart() {
+  alert("Google maps did not load, please refresh this page and check your internet connection");
 }
