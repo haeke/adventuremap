@@ -49,33 +49,10 @@ var mapItems = function (data) {
 
     $.getJSON(wikiInfo).done(function(data) {
       self.articleinfo = data[2][0];
-      //self.des  = '<a href=' + data[3][0] + '>' + data[3][0]
-      //+ '</a><br />' + '<p>' + data[2][0] + '</p>';
-
       console.log('DES 1: ' + articleinfo.des);
     }).fail(function () {
       alert('There was an error with the Wikipedia database. Please try refreshing the page.');
     });
-
-    //gather info from wikipedia for json locations
-    // $.ajax({
-    //   url: wikiInfo,
-    //   type: 'GET',
-    //   contentType: 'application/json; charset=utf-8',
-    //   async: false,
-    //   dataType: 'json',
-    //   success: function(data, status, jqXHR) {
-    //     console.log(data);
-    //     //$('#output').html();
-    //     //$('#output').prepend('<a href=' + data[3][0] + '>' + data[3][0]
-    //     //+ '</a><br />' + '<p>' + data[2][0] + '</p>');
-    //
-    //     this.des  = '<a href=' + data[3][0] + '>' + data[3][0]
-    //     + '</a><br />' + '<p>' + data[2][0] + '</p>';
-    //
-    //     console.log('DES 1: ' + this.des);
-    //   },
-    // });
 
     //store the content for the markers to be displayed
     this.content = self.des;
@@ -110,9 +87,7 @@ var mapItems = function (data) {
     this.targeted = function(locs) {
       google.maps.event.trigger(self.marker, 'click');
     };
-
   };
-
 
 
 function PageLinkViewModel() {
