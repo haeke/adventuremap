@@ -54,19 +54,14 @@ var mapItems = function (data) {
 
     console.log('WikiInfo to display: ' + wikiInfo);
 
+    //global infoWindow ( Udacity instructor suggestion)
+    var infoWindow = new google.maps.InfoWindow();
+
     $.getJSON(wikiInfo).done(function(data) {
       self.articleinfo = data[2][0];
     }).fail(function () {
       alert('There was an error with the Wikipedia database. Please try refreshing the page.');
     });
-
-    //store the content for the markers to be displayed
-    this.content = self.des;
-
-    //create an instance of an infowindow
-    this.info = new google.maps.InfoWindow({ content: this.content });
-
-    console.log('infomarker: ', this.info);
 
     this.marker = new google.maps.Marker({
       position: new google.maps.LatLng(data.lat, data.lng),
@@ -87,7 +82,8 @@ var mapItems = function (data) {
     //handle clicks on markers that are displayed
     this.marker.addListener('click', function () {
 
-      self.info.open(map, this);
+      infoWindow.setContent(self.articleinfo);
+      infoWindow.open(map, this);
 
       //trigger bounce animation as per google maps for the markers
       if (self.marker.getAnimation() !== null) {
@@ -110,12 +106,6 @@ function PageLinkViewModel() {
   this.searchItem = ko.observable('');
 
   this.locList = ko.observableArray([]);
-
-  //inital map
-  map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 13,
-    center: { lat: 40.739, lng: -74.008 },
-  });
 
   //create an instance of the mapdata per loclist
   myLatLng.forEach(function (locItem) {
@@ -152,5 +142,10 @@ function errorOnStart() {
 
 //google maps initilize function
 function initMap() {
+  //inital map - moved to initMap as per Udacity instructor recommendation
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 13,
+    center: { lat: 40.739, lng: -74.008 },
+  });
   ko.applyBindings(new PageLinkViewModel());
 }

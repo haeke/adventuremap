@@ -5,12 +5,12 @@
         <meta charset="UTF-8">
         <link href="css/style.css" rel="stylesheet">
         <link href="css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-        <script src="js/knockout-3.4.1.js"></script>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body class="container">
     <div class="col-md-3">
-        <h3>Quest inc.</h3>
+        <h2 class="markerinfo">Quest inc.</h2>
     </div>
     <div class="col-md-9">
         <input class="form-control" placeholder="Search…" data-bind="value: searchItem, valueUpdate: 'afterkeydown'" autocomplete="off" />
@@ -20,17 +20,17 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Marker Location</th>
+                        <th class="markerinfo">Marker Location</th>
                     </tr>
                 </thead>
                 <tbody data-bind="foreach: computedLocations">
                     <tr data-bind="">
-                        <td data-bind="text: title, click: targeted"></td>
+                        <td class="markerinfo" data-bind="text: title, click: targeted"></td>
                     </tr>
                 </tbody>
             </table>
-            <h3>Museum Description</h3>
-            <div data-bind="foreach: computedLocations">
+            <h3 class="markerinfo">Museum Description</h3>
+            <div class="pre-scrollable markerinfo" data-bind="foreach: computedLocations">
                 <p data-bind="text: articleinfo"></p>
             </div>
         </div>
@@ -39,6 +39,8 @@
         </div>
     </div>
     </div>
+    <script src="js/jquery-3.2.0.min.js"></script>
+    <script src="js/knockout-3.4.1.js"></script>
     <script src="js/searchable.js"></script>
       <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPDoxJcgDvmeBqTqx70Cwa6bQOiGAEV-4&callback=initMap" onerror="errorOnStart()"></script>
     </body>

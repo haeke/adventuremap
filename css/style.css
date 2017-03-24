@@ -2,14 +2,30 @@
  * element that contains the map. */
 #map {
   float: left;
-  height: 800px;
-  width: 900px;
+  height: 600px;
+  width: 100%;
+}
+
+.markerinfo {
+  color: white;
 }
 
 
 /* Optional: Makes the sample page fill the window. */
-html, body {
+body {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+.container {
+  background-color: #118C4E;
+}
+
+/*Adjust the size of the map when the screen is smaller*/
+@media screen and (max-width: 450px) {
+  #map {
+    height: 100px;
+    width: 100%;
+  }
 }
