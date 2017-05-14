@@ -6,7 +6,7 @@ This site lets you search through a list of Museums in the NYC area. A general d
 
 Clone the repo and open up `searchable.html` in your browser of choice.
 
-#Technology used
+# Technology used
 - KnockoutJS - https://knockoutjs.com
 - Google Maps API - https://developers.google.com/maps/
 - Wikipedia's API - https://www.mediawiki.org/wiki/API:Main_page
