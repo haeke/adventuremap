@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Searchable Array</title>
+        <meta charset="UTF-8">
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body class="container">
+        <header class="col-md-12">
+        <div class="col-md-12 text-center">
+            <h1 class="markerinfo">NYC Museum Adventure Map</h1>
+        </div>
+        </header>
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <h2 class="markerinfo">Quest inc.</h2>
+            </div>
+            <div class="col-md-9">
+                <input class="form-control" placeholder="Search here" data-bind="value: searchItem, valueUpdate: 'afterkeydown'" autocomplete="off" />
+            </div>
+        </div>
+    <div class="col-md-12">
+        <aside class="col-md-3">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="markerinfo">Marker Location</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: computedLocations">
+                    <tr data-bind="">
+                        <td class="markerinfo" data-bind="text: title, click: targeted"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3 class="markerinfo">Museum Description</h3>
+            <div class="pre-scrollable markerinfo" data-bind="foreach: computedLocations">
+                <p data-bind="text: articleinfo"></p>
+            </div>
+        </aside>
+        <main class="col-md-9">
+            <div id="map"></div>
+        </main>
+    </div>
+    <footer class="col-md-12">
+        <h2 class="markerinfo text-center">
+            Marker description provided by <a class="markerinfo" href="">Wikipedia</a>
+        </h2>
+    </div>
+    <script src="static/js/jquery-3.2.0.min.js"></script>
+    <script src="static/js/knockout-3.4.1.js"></script>
+    <script src="static/js/searchable.js"></script>
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPDoxJcgDvmeBqTqx70Cwa6bQOiGAEV-4&callback=initMap" onerror="errorOnStart()"></script>
+    </body>
+</html>
